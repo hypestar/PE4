@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>PE4</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>author</param-name>
+    <param-value>Jacob Dueholm</param-value>
+  </context-param>
+  <context-param>
+    <param-name>version</param-name>
+    <param-value>0.1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>date</param-name>
+    <param-value>06-09-2012</param-value>
+  </context-param>
+  
+  <login-config>
+      <auth-method>FORM</auth-method>
+      <form-login-config>
+          <form-login-page>
+              /login.jsp
+          </form-login-page>
+          <form-error-page>
+              /fail_login.html
+          </form-error-page>
+      </form-login-config>
+  </login-config>
+  
+  <security-constraint>
+      <web-resource-collection>
+          <web-resource-name>
+              Private
+          </web-resource-name>
+          <description>
+              Accessible by authorised users 
+          </description>
+          <url-pattern>
+              /private/*
+          </url-pattern>
+          <http-method>
+              GET
+          </http-method>
+          <http-method>
+              POST
+          </http-method>
+          <http-method>
+              PUT
+          </http-method>
+     </web-resource-collection>
+     
+     <auth-constraint>
+         <role-name>
+             manager
+         </role-name>
+         <role-name>
+             customer
+         </role-name>
+     </auth-constraint>
+     
+     <user-data-constraint>
+         <transport-guarantee>
+             NONE
+         </transport-guarantee>
+     </user-data-constraint>
+  </security-constraint>
+  
+  
+    
+  
+    <resource-ref>
+        <description>
+		Resource reference to a factory for java.sql.Connection
+		instances that may be used for talking to Mike's Miniature Models
+		database that is configured in the context.xml file.
+        </description>
+
+        <res-ref-name>
+		jdbc/MMM
+        </res-ref-name>
+
+        <res-type>
+		javax.sql.DataSource
+        </res-type>
+
+        <res-auth>
+		Container
+        </res-auth>
+    </resource-ref>
+</web-app>
